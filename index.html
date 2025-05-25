@@ -12,15 +12,27 @@
       :root {
         --primary-gradient: linear-gradient(
           -45deg,
-          #3b3f99,
-          #1e1f26,
-          #ff6e7f,
-          #bfe9ff
+
+          #0f0f23,
+          #1a1a2e,
+          #16213e,
+          #0f3460
         );
-        --sidebar-bg: rgba(255, 255, 255, 0.1);
-        --content-bg: rgba(255, 255, 255, 0.08);
+
+        --sidebar-bg: rgba(255, 255, 255, 0.05);
+        --content-bg: rgba(255, 255, 255, 0.03);
         --glass-effect: blur(12px);
-        --text-gradient: linear-gradient(45deg, #667eea, #764ba2);
+
+        --text-gradient: linear-gradient(45deg, #64ffda, #00bcd4);
+        --accent-color: #64ffda;
+        --secondary-color: #00bcd4;
+        --text-primary: #ffffff;
+        --text-secondary: #b0bec5;
+        --card-bg: rgba(255, 255, 255, 0.08);
+        --hover-bg: rgba(255, 255, 255, 0.12);
+        --border-color: rgba(100, 255, 218, 0.2);
+        --error-color: #ff5252;
+        --success-color: #4caf50;
       }
 
       * {
@@ -38,7 +50,8 @@
         height: 100vh;
         width: 100vw;
         overflow: hidden;
-        color: #fff;
+
+        color: var(--text-primary);
         margin: 0;
         padding: 0;
         display: flex;
@@ -59,13 +72,13 @@
       }
 
       ::-webkit-scrollbar {
-        width: 10px;
+        width: 8px;
       }
       ::-webkit-scrollbar-track {
         background: transparent;
       }
       ::-webkit-scrollbar-thumb {
-        background: linear-gradient(45deg, #667eea, #764ba2);
+        background: var(--text-gradient);
         border-radius: 10px;
       }
 
@@ -79,16 +92,19 @@
         display: flex;
         flex-direction: column;
         position: relative;
+        border: 1px solid var(--border-color);
       }
       .mac-header {
         height: 40px;
-        background: rgba(255, 255, 255, 0.15);
+
+        background: rgba(255, 255, 255, 0.08);
         display: flex;
         align-items: center;
         gap: 0.5rem;
         padding-left: 1rem;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
+        border-bottom: 1px solid var(--border-color);
       }
       .mac-header span {
         width: 12px;
@@ -120,29 +136,37 @@
         align-items: center;
         gap: 1.5rem;
         padding: 2rem 0;
+        border-right: 1px solid var(--border-color);
       }
       .nav-item {
         width: 50px;
         height: 50px;
-        background: var(--sidebar-bg);
+
+        background: var(--card-bg);
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         text-decoration: none;
-        color: white;
+
+        color: var(--text-secondary);
         position: relative;
-        transition: 0.3s ease;
+
+        transition: all 0.3s ease;
+        border: 1px solid var(--border-color);
       }
       .nav-item:hover {
-        background: rgba(255, 255, 255, 0.2);
+        background: var(--hover-bg);
+        color: var(--accent-color);
         transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(100, 255, 218, 0.2);
       }
       .nav-item::after {
         content: attr(data-tooltip);
         position: absolute;
         left: 70px;
-        background: rgba(0, 0, 0, 0.8);
+
+        background: rgba(0, 0, 0, 0.9);
         padding: 0.4rem 0.7rem;
         border-radius: 6px;
         font-size: 0.75rem;
@@ -150,6 +174,7 @@
         opacity: 0;
         visibility: hidden;
         transition: 0.3s ease;
+        border: 1px solid var(--border-color);
       }
       .nav-item:hover::after {
         opacity: 1;
@@ -163,7 +188,7 @@
       }
 
       .section {
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
         animation: fadeInUp 0.6s ease forwards;
         opacity: 0;
         transform: translateY(20px);
@@ -176,67 +201,341 @@
         }
       }
 
+      /* Intro Section */
       .intro {
-        background: linear-gradient(135deg, #fa709a, #fee140);
-        color: #000;
-        padding: 2rem;
-        border-radius: 20px;
+        background: var(--card-bg);
+        backdrop-filter: blur(20px);
+
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        padding: 3rem;
+        border-radius: 25px;
         display: flex;
-        flex-wrap: wrap;
-        gap: 2rem;
         align-items: center;
+        gap: 3rem;
+        min-height: 400px;
+        position: relative;
+        overflow: hidden;
       }
 
-      .intro h1 {
+      .intro::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(100, 255, 218, 0.05),
+          transparent
+        );
+        animation: shimmer 3s ease-in-out infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .intro-left {
+        flex: 1;
+        z-index: 2;
+      }
+
+      .intro-right {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+      }
+
+      .animated-greeting {
         font-size: 2.5rem;
-        background: var(--accent-gradient);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .greeting-text {
+        background: var(--text-gradient);
+        background-size: 300% 300%;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 4s ease-in-out infinite;
       }
 
-      .intro img {
-        max-width: 150px;
-        border-radius: 50%;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      .typing-name {
+        background: linear-gradient(45deg, #64ffda, #00bcd4, #4fc3f7, #29b6f6);
+        background-size: 300% 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 3s ease-in-out infinite;
+        font-weight: 700;
+      }
+
+      .cursor {
+        color: var(--accent-color);
+        animation: blink 1s infinite;
+        font-weight: 300;
+      }
+
+      @keyframes gradientShift {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .role-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        letter-spacing: 3px;
+
+        background: var(--text-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1.5rem;
+      }
+
+      .description {
+        font-size: 1.1rem;
+        line-height: 1.8;
+
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        text-align: justify;
       }
 
       .download-btn {
         margin-top: 1rem;
-        padding: 0.8rem 1.5rem;
-        background: var(--accent-gradient);
-        color: white;
+        padding: 1rem 2rem;
+
+        background: var(--text-gradient);
+        color: var(--text-primary);
         text-decoration: none;
-        border-radius: 10px;
-        display: inline-block;
+        border-radius: 50px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+
+        box-shadow: 0 4px 15px rgba(100, 255, 218, 0.3);
+      }
+
+      .download-btn:hover {
+        transform: translateY(-2px);
+
+        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.5);
+      }
+
+      .avatar-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .avatar-img {
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+        z-index: 2;
+        position: relative;
+        border: 2px solid var(--border-color);
+      }
+
+      .avatar-img:hover {
+        transform: scale(1.05) rotate(2deg);
+      }
+
+      .avatar-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 320px;
+        height: 320px;
+
+        background: var(--text-gradient);
+        border-radius: 25px;
+
+        opacity: 0.2;
+        animation: pulse 2s ease-in-out infinite;
+        z-index: 1;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+
+          opacity: 0.2;
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.1);
+          opacity: 0.1;
+        }
       }
 
       .section-title {
-        font-size: 2rem;
-        margin-bottom: 1rem;
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
         background: var(--text-gradient);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        text-align: center;
+        font-weight: 700;
       }
 
-      .experience-stepper {
+      /* Skills Section */
+      .skills-grid {
+        display: flex;
+
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: center;
+      }
+
+      .skill-card {
+        background: var(--card-bg);
+        padding: 2rem 1.5rem;
+        border-radius: 20px;
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        text-align: center;
+        min-width: 150px;
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .skill-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(100, 255, 218, 0.1),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .skill-card:hover::before {
+        left: 100%;
+      }
+
+      .skill-card:hover {
+        transform: translateY(-10px);
+        background: var(--hover-bg);
+        box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
+        border-color: var(--accent-color);
+      }
+
+      .skill-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: var(--accent-color);
+      }
+
+      .skill-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      /* Experience Section */
+      .experience-container {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 2rem;
       }
 
-      .skill-card,
-      .project-card {
-        background: var(--glass-bg);
-        padding: 1rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease;
+      .experience-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        position: relative;
       }
 
-      .skill-card:hover,
-      .project-card:hover {
-        transform: translateY(-5px);
+      .experience-card:hover {
+        transform: translateX(10px);
         background: var(--hover-bg);
+        box-shadow: 0 10px 30px rgba(100, 255, 218, 0.15);
+      }
+
+      .experience-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .experience-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        margin-bottom: 0.5rem;
+      }
+
+      .experience-company {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+      }
+
+      .experience-duration {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 0.5rem 1rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .experience-description {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
       }
 
       .contact-form input,
@@ -274,6 +573,27 @@
         .mac-content {
           padding: 1rem;
         }
+        .intro {
+          flex-direction: column;
+          text-align: center;
+          padding: 2rem;
+          gap: 2rem;
+        }
+
+        .animated-greeting {
+          font-size: 2rem;
+          justify-content: center;
+        }
+
+        .avatar-img {
+          width: 250px;
+          height: 250px;
+        }
+
+        .avatar-glow {
+          width: 270px;
+          height: 270px;
+        }
       }
     </style>
   </head>
@@ -304,18 +624,37 @@
         </nav>
         <div class="mac-content">
           <section class="section intro" id="about">
-            <div>
-              <h1>Rishit Rajpara</h1>
-              <p>
-                Frontend Developer specializing in Angular, RxJS, NgRx, RESTful
-                APIs, and scalable UI development.
+            <div class="intro-left">
+              <div class="animated-greeting">
+                <span class="greeting-text">Hi, I'm </span>
+                <span class="typing-name" id="typingName"></span>
+                <span class="cursor">|</span>
+              </div>
+              <h2 class="role-title">FRONTEND DEVELOPER</h2>
+              <p class="description">
+                Frontend Developer skilled in building responsive, scalable
+                Angular applications. Proficient in creating user friendly UIs,
+                integrating REST APIs, and optimizing performance. Experienced
+                in micro frontend architecture, reusable components, and test
+                automation with Cypress. Strong team player with a focus on
+                clean code, UX, and modern best practices.
               </p>
-              <a href="#" class="download-btn">Download Resume</a>
+              <a href="#" class="download-btn">
+                <i class="fas fa-download"></i>
+                Download Resume
+              </a>
             </div>
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-              alt="Avatar"
-            />
+
+            <div class="intro-right">
+              <div class="avatar-container">
+                <img
+                  src="https://cdni.iconscout.com/illustration/premium/thumb/male-developer-illustration-download-in-svg-png-gif-file-formats--programmer-coding-man-activity-pack-people-illustrations-4013997.png"
+                  alt="Rishit Rajpara - Frontend Developer"
+                  class="avatar-img"
+                />
+                <div class="avatar-glow"></div>
+              </div>
+            </div>
           </section>
 
           <section class="section" id="skills">
@@ -407,6 +746,31 @@
       </div>
     </div>
     <script>
+      // Typing animation
+      const typingName = document.getElementById("typingName");
+      const name = " Rishit Rajpara";
+      let i = 0;
+
+      function typeWriter() {
+        if (i < name.length) {
+          typingName.innerHTML += name.charAt(i);
+          i++;
+          setTimeout(typeWriter, 150);
+        } else {
+          setTimeout(() => {
+            typingName.innerHTML = "";
+            i = 0;
+            setTimeout(typeWriter, 1000);
+          }, 3000);
+        }
+      }
+
+      // Start typing animation when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(typeWriter, 1000);
+      });
+
+      // Existing intersection observer code...
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
