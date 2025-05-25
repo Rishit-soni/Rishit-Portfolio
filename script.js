@@ -35,3 +35,20 @@ const observer = new IntersectionObserver(
   { threshold: 0.1 }
 );
 document.querySelectorAll(".section").forEach((el) => observer.observe(el));
+
+document
+  .getElementById("contact-form")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    emailjs.sendForm("service_9f7p31m", "template_u10x8fa", this).then(
+      function () {
+        alert("Message sent successfully!");
+      },
+      function (error) {
+        alert("Failed to send message. Error: " + JSON.stringify(error));
+      }
+    );
+
+    this.reset();
+  });
