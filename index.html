@@ -182,9 +182,15 @@
       }
 
       .mac-content {
-        flex: 1;
-        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 2rem 0 2rem;
         overflow-y: auto;
+      }
+
+      /* ensure individual sections don't flex-grow */
+      .mac-content > .section {
+        flex: none;
       }
 
       .section {
@@ -816,6 +822,51 @@
         color: var(--text-secondary);
         margin: 0;
       }
+
+      /* Footer inside the Mac container */
+      .mac-footer {
+        margin-top: auto;
+        padding: 0.75rem 2rem;
+        background: var(--sidebar-bg);
+        border-top: 1px solid var(--border-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .mac-footer .footer-content {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+      }
+
+      .mac-footer .footer-content a {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-secondary);
+        text-decoration: none;
+
+        transition: color 0.3s, transform 0.2s;
+      }
+
+      .mac-footer .footer-content a:hover {
+        color: var(--accent-color);
+        transform: translateY(-2px);
+      }
+
+      /* Responsive tweaks */
+      @media (max-width: 480px) {
+        .mac-footer {
+          padding: 0.5rem 1rem;
+        }
+        .mac-footer .footer-content {
+          gap: 1rem;
+        }
+        .mac-footer .footer-content a {
+          font-size: 0.85rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1074,25 +1125,55 @@
               </div>
             </div>
           </section>
+          <!-- … earlier sections … -->
 
-          <section class="section contact-form" id="contact">
-            <h2 class="section-title">Contact</h2>
-            <form action="#" method="POST">
-              <input type="text" name="name" placeholder="Your Name" required />
-              <input
-                type="email"
-                name="email"
-                placeholder="Your Email"
-                required
-              />
-              <textarea
-                name="message"
-                rows="5"
-                placeholder="Your Message"
-                required
-              ></textarea>
-              <button type="submit">Send</button>
-            </form>
+          <section class="section contact-section" id="contact">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-wrapper">
+              <div class="contact-illustration">
+                <img
+                  src="assets/contact-illustration.png"
+                  alt="Contact Illustration"
+                />
+              </div>
+              <div class="contact-content">
+                <form class="contact-form" action="#" method="POST" novalidate>
+                  <div class="form-group">
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="Your Name"
+                      required
+                    />
+                    <span class="error-message">Please enter your name</span>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="Your Email"
+                      required
+                    />
+                    <span class="error-message"
+                      >Please enter a valid email</span
+                    >
+                  </div>
+                  <div class="form-group">
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows="5"
+                      placeholder="Your Message"
+                      required
+                    ></textarea>
+                    <span class="error-message">Please enter your message</span>
+                  </div>
+                  <button type="submit">Send Message</button>
+                </form>
+              </div>
+            </div>
           </section>
         </div>
       </div>
