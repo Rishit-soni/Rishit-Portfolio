@@ -1,33 +1,37 @@
-// Light/Dark Mode Toggle
-const toggleThemeBtn = document.getElementById("toggle-theme");
+// Typing animation
+const typingName = document.getElementById("typingName");
+const name = " Rishit Rajpara";
+let i = 0;
 
-if (toggleThemeBtn) {
-  toggleThemeBtn.addEventListener("click", () => {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute("data-theme");
-    html.setAttribute(
-      "data-theme",
-      currentTheme === "light" ? "dark" : "light"
-    );
-  });
+function typeWriter() {
+  if (i < name.length) {
+    typingName.innerHTML += name.charAt(i);
+    i++;
+    setTimeout(typeWriter, 150);
+  } else {
+    setTimeout(() => {
+      typingName.innerHTML = "";
+      i = 0;
+      setTimeout(typeWriter, 1000);
+    }, 3000);
+  }
 }
 
-// Scroll-triggered animations using IntersectionObserver
-const animatedSections = document.querySelectorAll(".reveal");
+// Start typing animation when page loads
+document.addEventListener("DOMContentLoaded", function () {
+  setTimeout(typeWriter, 1000);
+});
+
+// Existing intersection observer code...
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
+        entry.target.classList.add("fade-in");
         observer.unobserve(entry.target);
       }
     });
   },
-  {
-    threshold: 0.1,
-  }
+  { threshold: 0.1 }
 );
-
-animatedSections.forEach((section) => {
-  observer.observe(section);
-});
+document.querySelectorAll(".section").forEach((el) => observer.observe(el));
