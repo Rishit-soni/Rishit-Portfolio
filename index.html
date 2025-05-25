@@ -7,17 +7,20 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-p0XxR+e/yZ53pZKKyE2YkMiBP/dLKkdiyQ5U+KMtVZLuOQj2ZBkpFrHt0NfgKzT7YrNq6MKPsnPbwD02IjI3uQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
     />
     <style>
       :root {
-        --primary-bg: rgba(255, 255, 255, 0.08);
-        --glass-bg: rgba(255, 255, 255, 0.1);
-        --hover-bg: rgba(255, 255, 255, 0.2);
-        --text-color: #ffffff;
-        --accent-gradient: linear-gradient(45deg, #667eea, #764ba2);
+        --primary-gradient: linear-gradient(
+          -45deg,
+          #3b3f99,
+          #1e1f26,
+          #ff6e7f,
+          #bfe9ff
+        );
+        --sidebar-bg: rgba(255, 255, 255, 0.1);
+        --content-bg: rgba(255, 255, 255, 0.08);
+        --glass-effect: blur(12px);
+        --text-gradient: linear-gradient(45deg, #667eea, #764ba2);
       }
 
       * {
@@ -28,12 +31,19 @@
 
       html,
       body {
-        height: 100%;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        color: var(--text-color);
-        background: linear-gradient(-45deg, #3b3f99, #1e1f26, #ff6e7f, #bfe9ff);
+        background: var(--primary-gradient);
         background-size: 400% 400%;
         animation: animatedGradient 15s ease infinite;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       @keyframes animatedGradient {
@@ -48,19 +58,28 @@
         }
       }
 
-      .mac-container {
-        max-width: 1000px;
-        height: 90vh;
-        margin: 2rem auto;
-        display: flex;
-        flex-direction: column;
-        border-radius: 20px;
-        background: var(--primary-bg);
-        backdrop-filter: blur(12px);
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-        overflow: hidden;
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        border-radius: 10px;
       }
 
+      .mac-container {
+        width: 90vw;
+        height: 90vh;
+        border-radius: 20px;
+        background: var(--content-bg);
+        backdrop-filter: var(--glass-effect);
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
       .mac-header {
         height: 40px;
         background: rgba(255, 255, 255, 0.15);
@@ -68,14 +87,15 @@
         align-items: center;
         gap: 0.5rem;
         padding-left: 1rem;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
       }
-
       .mac-header span {
         width: 12px;
         height: 12px;
         border-radius: 50%;
+        display: inline-block;
       }
-
       .red {
         background: #ff605c;
       }
@@ -94,44 +114,59 @@
 
       .nav-sidebar {
         width: 80px;
-        background: var(--glass-bg);
+        background: var(--sidebar-bg);
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 1rem 0;
-        gap: 1rem;
+        gap: 1.5rem;
+        padding: 2rem 0;
       }
-
       .nav-item {
         width: 50px;
         height: 50px;
-        background: var(--glass-bg);
-        color: #fff;
-        border-radius: 10px;
+        background: var(--sidebar-bg);
+        border-radius: 12px;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         text-decoration: none;
-        transition: 0.3s;
+        color: white;
+        position: relative;
+        transition: 0.3s ease;
       }
-
       .nav-item:hover {
-        background: var(--hover-bg);
+        background: rgba(255, 255, 255, 0.2);
         transform: translateY(-2px);
+      }
+      .nav-item::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        left: 70px;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 0.4rem 0.7rem;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.3s ease;
+      }
+      .nav-item:hover::after {
+        opacity: 1;
+        visibility: visible;
       }
 
       .mac-content {
         flex: 1;
-        overflow-y: auto;
         padding: 2rem;
-        scroll-behavior: smooth;
+        overflow-y: auto;
       }
 
       .section {
         margin-bottom: 2rem;
+        animation: fadeInUp 0.6s ease forwards;
         opacity: 0;
         transform: translateY(20px);
-        animation: fadeInUp 0.6s ease forwards;
       }
 
       @keyframes fadeInUp {
@@ -178,15 +213,14 @@
       .section-title {
         font-size: 2rem;
         margin-bottom: 1rem;
-        background: var(--accent-gradient);
+        background: var(--text-gradient);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
 
-      .skills-grid,
-      .projects-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      .experience-stepper {
+        display: flex;
+        flex-direction: column;
         gap: 1.5rem;
       }
 
@@ -231,16 +265,18 @@
         .main-content {
           flex-direction: column;
         }
-
         .nav-sidebar {
           flex-direction: row;
           width: 100%;
           justify-content: space-around;
+          padding: 1rem 0;
+        }
+        .mac-content {
+          padding: 1rem;
         }
       }
     </style>
   </head>
-
   <body>
     <div class="mac-container">
       <div class="mac-header">
@@ -250,19 +286,19 @@
       </div>
       <div class="main-content">
         <nav class="nav-sidebar">
-          <a href="#about" class="nav-item" title="About"
+          <a href="#about" class="nav-item" data-tooltip="About"
             ><i class="fas fa-user"></i
           ></a>
-          <a href="#skills" class="nav-item" title="Skills"
+          <a href="#skills" class="nav-item" data-tooltip="Skills"
             ><i class="fas fa-code"></i
           ></a>
-          <a href="#experience" class="nav-item" title="Experience"
+          <a href="#experience" class="nav-item" data-tooltip="Experience"
             ><i class="fas fa-briefcase"></i
           ></a>
-          <a href="#projects" class="nav-item" title="Projects"
+          <a href="#projects" class="nav-item" data-tooltip="Projects"
             ><i class="fas fa-project-diagram"></i
           ></a>
-          <a href="#contact" class="nav-item" title="Contact"
+          <a href="#contact" class="nav-item" data-tooltip="Contact"
             ><i class="fas fa-envelope"></i
           ></a>
         </nav>
@@ -370,26 +406,21 @@
         </div>
       </div>
     </div>
-
     <script>
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.style.opacity = 1;
-              entry.target.style.transform = "translateY(0)";
+              entry.target.classList.add("fade-in");
               observer.unobserve(entry.target);
             }
           });
         },
-        {
-          threshold: 0.1,
-        }
+        { threshold: 0.1 }
       );
-
-      document.querySelectorAll(".section").forEach((section) => {
-        observer.observe(section);
-      });
+      document
+        .querySelectorAll(".section")
+        .forEach((el) => observer.observe(el));
     </script>
   </body>
 </html>
