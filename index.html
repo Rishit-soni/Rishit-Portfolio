@@ -421,28 +421,95 @@
       /* Skills Section */
       .skills-grid {
         display: flex;
-
         flex-wrap: wrap;
         gap: 1.5rem;
         justify-content: center;
       }
 
       .skill-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         background: var(--card-bg);
-        padding: 2rem 1.5rem;
+        padding: 1rem;
         border-radius: 20px;
         border: 1px solid var(--border-color);
-        transition: all 0.3s ease;
         text-align: center;
-        min-width: 150px;
+        min-width: 140px;
+        min-height: 160px;
         backdrop-filter: blur(10px);
         position: relative;
         overflow: hidden;
+        cursor: default;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
 
+      .skill-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(100, 255, 218, 0.15);
+        border-color: var(--accent-color);
+      }
+
+      .skill-name {
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 1rem;
+      }
+
+      /* stagger timing */
+      .skill-card:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .skill-card:nth-child(2) {
+        animation-delay: 0.4s;
+      }
+      .skill-card:nth-child(3) {
+        animation-delay: 0.6s;
+      }
+      .skill-card:nth-child(4) {
+        animation-delay: 0.8s;
+      }
+      .skill-card:nth-child(5) {
+        animation-delay: 1s;
+      }
+      .skill-card:nth-child(6) {
+        animation-delay: 1.2s;
+      }
+      .skill-card:nth-child(7) {
+        animation-delay: 1.4s;
+      }
+      .skill-card:nth-child(8) {
+        animation-delay: 1.6s;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* remove any icon/name animations */
+      .skill-icon,
+      .skill-logo {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+        transition: none;
+      }
+      .skill-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 0;
+      }
+
+      /* keep only the card hover effect */
       .skill-card::before {
         content: "";
         position: absolute;
+
         top: 0;
         left: -100%;
         width: 100%;
@@ -453,7 +520,7 @@
           rgba(100, 255, 218, 0.1),
           transparent
         );
-        transition: left 0.5s;
+        transition: left 0.6s;
       }
 
       .skill-card:hover::before {
@@ -463,20 +530,8 @@
       .skill-card:hover {
         transform: translateY(-10px);
         background: var(--hover-bg);
-        box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
         border-color: var(--accent-color);
-      }
-
-      .skill-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-        color: var(--accent-color);
-      }
-
-      .skill-name {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: var(--text-primary);
+        box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
       }
 
       /* Experience Section */
@@ -521,6 +576,31 @@
       .experience-company {
         font-size: 1.1rem;
         color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+      }
+
+      .company-label {
+        font-weight: 500;
+        margin-right: 0.25rem;
+      }
+
+      .company-name {
+        color: #64b5f6; /* a nice blue */
+        font-weight: 600;
+      }
+
+      .company-link {
+        margin-left: 0.5rem;
+      }
+
+      .company-link i {
+        color: var(--text-secondary);
+        transition: color 0.3s ease;
+      }
+
+      .company-link:hover i {
+        color: var(--accent-color);
       }
 
       .experience-duration {
@@ -533,31 +613,112 @@
       }
 
       .experience-description {
+        padding-left: 1.2rem;
         font-size: 1rem;
         color: var(--text-secondary);
         line-height: 1.6;
       }
 
+      /* Contact Section */
+      .contact-section {
+        padding: 0;
+      }
+      .contact-wrapper {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .contact-illustration img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      }
+      .contact-content {
+        flex: 1;
+        min-width: 320px;
+      }
+      .contact-form {
+        background: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(10px);
+        margin-bottom: 2rem;
+      }
+      .form-group {
+        position: relative;
+        margin-bottom: 1.25rem;
+      }
       .contact-form input,
       .contact-form textarea {
         width: 100%;
-        margin-bottom: 1rem;
-        padding: 1rem;
-        border-radius: 10px;
-        border: none;
+
+        padding: 0.75rem 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        font-family: inherit;
       }
 
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.2);
+        outline: none;
+      }
+      .contact-form input:invalid,
+      .contact-form textarea:invalid {
+        border-color: var(--error-color);
+      }
+      .error-message {
+        display: none;
+        color: var(--error-color);
+        font-size: 0.85rem;
+        position: absolute;
+        bottom: -1.2rem;
+        left: 0.5rem;
+      }
+      .form-group input:invalid + .error-message,
+      .form-group textarea:invalid + .error-message {
+        display: block;
+      }
       .contact-form button {
-        padding: 1rem 2rem;
-        background: #28a745;
-        color: white;
+        background: var(--accent-color);
+        color: var(--text-primary);
+        padding: 0.75rem 2rem;
         border: none;
-        border-radius: 10px;
+
+        border-radius: 8px;
+        font-size: 1rem;
         cursor: pointer;
+        font-family: inherit;
+        transition: background 0.3s, transform 0.2s;
       }
 
       .contact-form button:hover {
-        background: #218838;
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+      }
+
+      /* Contact Info */
+      .contact-info p {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-secondary);
+        margin: 0.5rem 0;
+        font-size: 0.95rem;
+      }
+      .contact-info a {
+        color: var(--accent-color);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .contact-info a:hover {
+        color: var(--secondary-color);
       }
 
       @media (max-width: 768px) {
@@ -594,6 +755,66 @@
           width: 270px;
           height: 270px;
         }
+      }
+
+      /* Projects Section Modern Styles */
+      .projects-section {
+        padding-top: 0;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .project-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(100, 255, 218, 0.2);
+        border-color: var(--accent-color);
+      }
+
+      .project-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .project-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        margin: 0;
+      }
+
+      .project-link i {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        transition: color 0.3s ease;
+      }
+
+      .project-link:hover i {
+        color: var(--accent-color);
+      }
+
+      .project-description {
+        flex: 1;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+        margin: 0;
       }
     </style>
   </head>
@@ -660,64 +881,195 @@
           <section class="section" id="skills">
             <h2 class="section-title">Skills</h2>
             <div class="skills-grid">
-              <div class="skill-card">HTML5</div>
-              <div class="skill-card">CSS3 / SCSS</div>
-              <div class="skill-card">JavaScript</div>
-              <div class="skill-card">TypeScript</div>
-              <div class="skill-card">Angular</div>
-              <div class="skill-card">RxJS</div>
-              <div class="skill-card">NgRx</div>
-              <div class="skill-card">Git</div>
+              <div class="skill-card">
+                <img src="assets/html.png" alt="HTML5" class="skill-logo" />
+                <p class="skill-name">HTML5</p>
+              </div>
+              <div class="skill-card">
+                <img
+                  src="assets/css.png"
+                  alt="CSS3 / SCSS"
+                  class="skill-logo"
+                />
+                <p class="skill-name">CSS3 / SCSS</p>
+              </div>
+              <div class="skill-card">
+                <img src="assets/Js.png" alt="JavaScript" class="skill-logo" />
+                <p class="skill-name">JavaScript</p>
+              </div>
+              <div class="skill-card">
+                <img src="assets/ts.png" alt="TypeScript" class="skill-logo" />
+                <p class="skill-name">TypeScript</p>
+              </div>
+              <div class="skill-card">
+                <img
+                  src="assets/angular.png"
+                  alt="Angular"
+                  class="skill-logo"
+                />
+                <p class="skill-name">Angular</p>
+              </div>
+              <div class="skill-card">
+                <img src="assets/rxjs.png" alt="RxJS" class="skill-logo" />
+                <p class="skill-name">RxJS</p>
+              </div>
+              <div class="skill-card">
+                <img src="assets/git.jpeg" alt="Git" class="skill-logo" />
+                <p class="skill-name">Git</p>
+              </div>
+              <div class="skill-card">
+                <img
+                  src="assets/webpack.png"
+                  alt="Webpack"
+                  class="skill-logo"
+                />
+                <p class="skill-name">Webpack</p>
+              </div>
+              <div class="skill-card">
+                <img
+                  src="assets/cypress.jpeg"
+                  alt="Cypress"
+                  class="skill-logo"
+                />
+                <p class="skill-name">Cypress</p>
+              </div>
+              <div class="skill-card">
+                <img src="assets/npm.png" alt="npm" class="skill-logo" />
+                <p class="skill-name">npm</p>
+              </div>
+              <div class="skill-card">
+                <img src="assets/figma.png" alt="Figma" class="skill-logo" />
+                <p class="skill-name">Figma</p>
+              </div>
             </div>
           </section>
 
           <section class="section" id="experience">
             <h2 class="section-title">Experience</h2>
-            <p>
-              <strong
-                >Frontend Developer – Botpro Solutions (Jun 2024 -
-                Present)</strong
-              >
-            </p>
-            <ul>
-              <li>Developed Angular apps with NgRx and RxJS.</li>
-              <li>Boosted performance via lazy loading.</li>
-              <li>Improved UI consistency across apps.</li>
-            </ul>
-            <p>
-              <strong
-                >Software Intern – Botpro Solutions (Aug 2023 - May
-                2024)</strong
-              >
-            </p>
-            <ul>
-              <li>Built dynamic UIs with Angular and REST APIs.</li>
-              <li>Contributed to QA and Agile processes.</li>
-            </ul>
+
+            <div class="experience-container">
+              <!-- Frontend Developer Card -->
+              <div class="experience-card">
+                <div class="experience-header">
+                  <div>
+                    <h3 class="experience-title">Frontend Developer</h3>
+
+                    <p class="experience-company">
+                      <span class="company-label">Company:</span>
+                      <span class="company-name">Botpro Solutions</span>
+                      <a
+                        href="https://botprosolutions.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="company-link"
+                      >
+                        <i class="fas fa-external-link-alt"></i>
+                      </a>
+                    </p>
+                  </div>
+                  <span class="experience-duration">Jun 2024 – Present</span>
+                </div>
+                <ul class="experience-description">
+                  <li>
+                    Developed scalable Angular applications with NgRx and RxJS.
+                  </li>
+                  <li>
+                    Improved load times and UX with lazy loading and
+                    code-splitting.
+                  </li>
+                  <li>
+                    Standardized UI components for consistency across multiple
+                    projects.
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Software Intern Card -->
+              <div class="experience-card">
+                <div class="experience-header">
+                  <div>
+                    <h3 class="experience-title">Software Intern</h3>
+
+                    <p class="experience-company">
+                      <span class="company-label">Company:</span>
+                      <span class="company-name">Botpro Solutions</span>
+                      <a
+                        href="https://botprosolutions.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="company-link"
+                      >
+                        <i class="fas fa-external-link-alt"></i>
+                      </a>
+                    </p>
+                  </div>
+                  <span class="experience-duration">Aug 2023 – May 2024</span>
+                </div>
+                <ul class="experience-description">
+                  <li>
+                    Built dynamic UIs and integrated RESTful APIs in Angular.
+                  </li>
+                  <li>
+                    Collaborated in Agile sprints, contributing to QA and test
+                    automation.
+                  </li>
+                </ul>
+              </div>
+            </div>
           </section>
 
-          <section class="section" id="projects">
+          <section class="section projects-section" id="projects">
             <h2 class="section-title">Projects</h2>
             <div class="projects-grid">
               <div class="project-card">
-                <h4>Accounton.io</h4>
-                <p>
+                <div class="project-header">
+                  <h3 class="project-title">Accounton.io</h3>
+                  <a
+                    href="#"
+                    class="project-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+                <p class="project-description">
                   Built a micro-frontend dashboard using Angular, NgRx, and
                   role-based access control.
                 </p>
               </div>
               <div class="project-card">
-                <h4>AMLCare</h4>
-                <p>
+                <div class="project-header">
+                  <h3 class="project-title">AMLCare</h3>
+                  <a
+                    href="#"
+                    class="project-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+                <p class="project-description">
                   Designed automation for AML risk reduction using Angular
-                  Material and rule engine.
+                  Material and a custom rule engine.
                 </p>
               </div>
               <div class="project-card">
-                <h4>Chatomate</h4>
-                <p>
+                <div class="project-header">
+                  <h3 class="project-title">Chatomate</h3>
+                  <a
+                    href="#"
+                    class="project-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+                <p class="project-description">
                   Developed a chatbot campaign builder with drag-and-drop UI and
-                  analytics.
+                  integrated analytics dashboard.
                 </p>
               </div>
             </div>
