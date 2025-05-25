@@ -337,55 +337,62 @@
             </div>
           </section>
           <!-- … earlier sections … -->
-
-          <section class="section contact-section" id="contact">
-            <h2 class="section-title">Contact Me</h2>
-            <div class="contact-wrapper">
-              <div class="contact-illustration">
-                <img
-                  src="assets/contact-illustration.png"
-                  alt="Contact Illustration"
-                />
-              </div>
-              <div class="contact-content">
-                <form class="contact-form" action="#" method="POST" novalidate>
-                  <div class="form-group">
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      placeholder="Your Name"
-                      required
-                    />
-                    <span class="error-message">Please enter your name</span>
-                  </div>
-                  <div class="form-group">
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      placeholder="Your Email"
-                      required
-                    />
-                    <span class="error-message"
-                      >Please enter a valid email</span
+          <section class="contact-section" id="contact">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-container">
+              <!-- Contact Info -->
+              <div class="contact-box">
+                <div class="contact-info">
+                  <h3>Reach Me At</h3>
+                  <p>
+                    <i class="fas fa-map-marker-alt"></i> Rajkot, Gujarat, India
+                  </p>
+                  <p><i class="fas fa-envelope"></i> rishitrajpara@gmail.com</p>
+                  <p>
+                    <i class="fab fa-linkedin"></i> LinkedIn:
+                    <a
+                      href="https://linkedin.com/in/rishit-rajpara"
+                      target="_blank"
                     >
-                  </div>
-                  <div class="form-group">
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows="5"
-                      placeholder="Your Message"
-                      required
-                    ></textarea>
-                    <span class="error-message">Please enter your message</span>
-                  </div>
-                  <button type="submit">Send Message</button>
-                </form>
+                      rishit-rajpara
+                    </a>
+                  </p>
+                  <p><i class="fas fa-phone"></i> +91-83203 14737</p>
+                </div>
+              </div>
+
+              <!-- Contact Form -->
+              <div class="contact-box">
+                <div class="contact-form">
+                  <h3>Message</h3>
+                  <form>
+                    <div class="input-group">
+                      <i class="fas fa-user"></i>
+                      <input type="text" placeholder="Your name" required />
+                    </div>
+                    <div class="input-group">
+                      <i class="fas fa-envelope"></i>
+                      <input
+                        type="email"
+                        placeholder="Email address"
+                        required
+                      />
+                    </div>
+                    <div class="input-group">
+                      <textarea placeholder="Type Message" required></textarea>
+                    </div>
+                    <button type="submit">Send</button>
+                  </form>
+                </div>
               </div>
             </div>
           </section>
+
+          <!-- FontAwesome for icons -->
+          <script
+            src="https://kit.fontawesome.com/a076d05399.js"
+            crossorigin="anonymous"
+          ></script>
         </div>
       </div>
     </div>
